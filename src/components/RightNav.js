@@ -21,14 +21,13 @@ const NavItem = styled('div')`
     box-shadow: none;
     color: #000;
   }
+  img.circle {
+    border-radius: 50%;
+    width: 75%;
+    margin: 0 auto;
+    display: block;
+  }
  `
-
-const CircleImg = styled('img')`
-  border-radius: 50%;
-  width: 75%;
-  margin: 0 auto;
-  display: block;
-`
 
 class LeftNav extends React.Component {
 
@@ -37,7 +36,7 @@ class LeftNav extends React.Component {
       <div>
         <NavItem>
         <Link className="nav-link" to="/">
-          <CircleImg src={nate} alt="home" />
+          <img className="circle" src={nate} alt="home" />
           {' '}home{' '}
         </Link>
 
@@ -45,22 +44,22 @@ class LeftNav extends React.Component {
 
         <NavItem>
           <Link className="nav-link" to="/posts">
-            <CircleImg src={dan} alt="posts" />
+            <img className="circle" src={dan} alt="posts" />
             {' '}posts{' '}
           </Link>
         </NavItem>
 
         <NavItem>
           <Link className="nav-link" to="/pics">
-            <CircleImg src={blair} alt="pics" />
+            <img className="circle" src={blair} alt="pics" />
             {' '}pics{' '}
           </Link>
         </NavItem>
 
         <NavItem>
-          <Link className="nav-link" to="/links">
-            <CircleImg src={serena} alt="links" />
-            {' '}links{' '}
+          <Link className="nav-link" to="/cast">
+            <img className="circle" src={serena} alt="cast" />
+            {' '}cast{' '}
           </Link>
         </NavItem>
       </div>

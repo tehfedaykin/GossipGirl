@@ -11,15 +11,14 @@ import PostSnippet from '../components/PostSnippet'
 
 import Img from "gatsby-image";
 
-class Posts extends React.Component {
+class Pics extends React.Component {
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title')
     const siteDescription = get(
       this,
       'props.data.site.siteMetadata.description'
     )
-    const posts = get(this, 'props.data.allMarkdownRemark.edges')
-
+    const cast = get(this, 'props.data.allCastJson.edges')
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <Helmet
@@ -34,31 +33,20 @@ class Posts extends React.Component {
            sizes={this.props.data.bgImage.sizes}
            style={{width: '100%', position: 'absolute', top: '0', left: '0'}}
          />
-       <div className="container" style={{position: 'relative'}}>
-         <div className="header">
-           <Link style={{ boxShadow: 'none' }} to="/">
-             <Img
-                title="Gossip Girl"
-                alt="Gossip Girl"
-                sizes={this.props.data.logoImage.sizes}
-              />
-           </Link>
-         </div>
+        <div className="container" style={{position: 'relative'}}>
+          <div className="header">
+            <Link style={{ boxShadow: 'none' }} to="/">
+              <Img
+                 title="Gossip Girl"
+                 alt="Gossip Girl"
+                 sizes={this.props.data.logoImage.sizes}
+               />
+            </Link>
+          </div>
           <div className="row">
             <div className="col-9">
-              <h1>Posts</h1>
-              {posts.map(({ node }) => {
-                const image = require('../assets/img/' + node.frontmatter.image);
-                return (
-                  <PostSnippet key={node.fields.slug}
-                    image={image}
-                    location={node.frontmatter.location}
-                    date={node.frontmatter.date}
-                    person={node.frontmatter.person}
-                    slug={node.fields.slug}
-                    text={node.excerpt}/>
-                )
-              })}
+              <h1>The Pics</h1>
+              <h2>Coming soon</h2>
             </div>
             <div className="col">
               <RightNav />
@@ -74,7 +62,7 @@ class Posts extends React.Component {
   }
 }
 
-export default Posts
+export default Pics
 
 export const pageQuery = graphql`
   query {
@@ -92,23 +80,6 @@ export const pageQuery = graphql`
     bgImage: imageSharp(original: {src: { regex: "/background/" }} ) {
       sizes(maxWidth: 1240 ) {
         ...GatsbyImageSharpSizes
-      }
-    }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            image
-            person
-            location
-          }
-        }
       }
     }
   }

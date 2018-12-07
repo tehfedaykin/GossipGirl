@@ -5,7 +5,7 @@ module.exports = {
     description: 'The Site ABOUT the Upper East Side, FOR the Upper East Side and BY the Upper East Side!',
     siteUrl: 'https://tehfedaykin.github.io/GossipGirl/',
   },
-  pathPrefix: '/',
+  pathPrefix: '/GossipGirl',
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
@@ -20,6 +20,13 @@ module.exports = {
         name: `img`,
         path: `${__dirname}/src/assets/img/`
       }
+    },
+    `gatsby-transformer-json`,
+    {
+       resolve: `gatsby-source-filesystem`,
+       options: {
+         path: `./src/data/`,
+       },
     },
     {
       resolve: `gatsby-transformer-remark`,
@@ -55,24 +62,24 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Gossip Girls`,
+        short_name: `GossopGirl`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/assets/gatsby-icon.png`,
+        icon: `src/assets/ggkiss.png`,
       },
     },
     `gatsby-plugin-offline`,
     `gatsby-plugin-less`,
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: 'gatsby-plugin-typography',
-      options: {
-        pathToConfigModule: 'src/utils/typography',
-      },
-    },
+    // {
+    //   resolve: 'gatsby-plugin-typography',
+    //   options: {
+    //     pathToConfigModule: 'src/utils/typography',
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {

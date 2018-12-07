@@ -2,26 +2,23 @@ import React from 'react'
 import { Link, graphql } from 'gatsby'
 import get from 'lodash/get'
 import Helmet from 'react-helmet'
+import styled from 'react-emotion'
 
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
-import LeftNav from '../components/LeftNav'
 import RightNav from '../components/RightNav'
 import PostSnippet from '../components/PostSnippet'
 
-import styled from 'react-emotion'
-
 import Img from "gatsby-image";
 
-class BlogIndex extends React.Component {
+class Posts extends React.Component {
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title')
     const siteDescription = get(
       this,
       'props.data.site.siteMetadata.description'
     )
-    const posts = get(this, 'props.data.allMarkdownRemark.edges')
-
+    const cast = get(this, 'props.data.allCastJson.edges')
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <Helmet
@@ -36,7 +33,7 @@ class BlogIndex extends React.Component {
            sizes={this.props.data.bgImage.sizes}
            style={{width: '100%', position: 'absolute', top: '0', left: '0'}}
          />
-       <div className="container" style={{position: 'relative'}}>
+        <div className="container" style={{position: 'relative'}}>
           <div className="header">
             <Link style={{ boxShadow: 'none' }} to="/">
               <Img
@@ -47,20 +44,33 @@ class BlogIndex extends React.Component {
             </Link>
           </div>
           <div className="row">
-            <div className="col">
-              <LeftNav />
-            </div>
-            <div className="col-6">
-              {posts.map(({ node }) => {
-                const image = require('../assets/img/' + node.frontmatter.image);
+            <div className="col-9">
+              <h1>The Cast</h1>
+              {cast.map(({ node }) => {
                 return (
-                  <PostSnippet key={node.fields.slug}
-                    image={image}
-                    location={node.frontmatter.location}
-                    date={node.frontmatter.date}
-                    person={node.frontmatter.person}
-                    slug={node.fields.slug}
-                    text={node.excerpt}/>
+                  <div key={node.character} style={{display:'block', margin: '3em 0'}}>
+                    <Img
+                       title={node.character}
+                       alt={node.character}
+                       sizes={node.characterPhoto.image.sizes}
+                       style={{width: '200px'}}
+                     />
+                    <h2>{node.character}</h2>
+                    <hr style={{border: 'none', borderTop: 'dotted 5px'}} />
+                    <div style={{textAlign: 'right'}}>
+                      <h3 style={{display: 'inline-block', lineHeight: '100px', margin: '0px 20px', verticalAlign:'top'}}>
+                        played by
+                        <a target="_blank" href={"https://twitter.com/" + node.twitter}> {node.player}</a></h3>
+                      <Img
+                         title={node.player}
+                         alt={node.player}
+                         sizes={node.playerPhoto.image.sizes}
+
+                         style={{width: '100px', display: 'inline-block'}}
+                       />
+                    </div>
+
+                  </div>
                 )
               })}
             </div>
@@ -78,7 +88,7 @@ class BlogIndex extends React.Component {
   }
 }
 
-export default BlogIndex
+export default Posts
 
 export const pageQuery = graphql`
   query {
@@ -98,18 +108,25 @@ export const pageQuery = graphql`
         ...GatsbyImageSharpSizes
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 1) {
+    allCastJson {
       edges {
         node {
-          excerpt
-          fields {
-            slug
+          character
+          characterPhoto {
+            image:childImageSharp {
+              sizes(maxWidth: 480 ) {
+                ...GatsbyImageSharpSizes
+              }
+            }
           }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            person
-            image
-            location
+          player
+          twitter
+          playerPhoto {
+            image:childImageSharp {
+              sizes(maxWidth: 480 ) {
+                ...GatsbyImageSharpSizes
+              }
+            }
           }
         }
       }

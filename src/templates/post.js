@@ -5,6 +5,8 @@ import get from 'lodash/get'
 
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
+import PostSnippet from '../components/PostSnippet'
+
 import { rhythm, scale } from '../utils/typography'
 
 class PostTemplate extends React.Component {
@@ -13,7 +15,7 @@ class PostTemplate extends React.Component {
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
     const siteDescription = post.excerpt
     const { previous, next } = this.props.pageContext
-
+    const image = require('../assets/img/' + post.frontmatter.image);
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <Helmet
@@ -21,12 +23,11 @@ class PostTemplate extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
-        <PostSnippet key={node.fields.slug}
+      <PostSnippet key={post.title}
           image={image}
-          date={node.frontmatter.date}
-          person={node.frontmatter.person}
-          slug={node.fields.slug}
-          text={node.excerpt}/>
+          date={post.frontmatter.date}
+          person={post.frontmatter.person}
+          text={post.html}/>
 
         <ul
           style={{

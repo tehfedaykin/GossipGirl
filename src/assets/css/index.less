@@ -1,11 +1,15 @@
 html, body {
   background: #000000;
   font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  color:#fff;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-weight: 400;
   color: #fff;
+}
+h1 {
+  font-size: 60px;
 }
 p {
   color:#fff;
@@ -14,6 +18,31 @@ p {
 
 .header {
   margin-bottom: -35px;
+}
+
+a {
+  text-decoration: none;
+  color: #8fa6a1;
+}
+
+img {
+  width: 100%;
+}
+
+img.circle {
+  border-radius: 50%;
+  width: 75%;
+  margin: 0 auto;
+  display: block;
+}
+
+.circle {
+  img {
+    border-radius: 50%;
+    width: 75%;
+    margin: 0 auto;
+    display: block;
+  }
 }
 
 @media (min-width: 576px) {
@@ -48,6 +77,11 @@ p {
 }
 .col {
   flex: 1;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .col-6 {
